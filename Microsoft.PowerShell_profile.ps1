@@ -28,7 +28,7 @@ function Set-Env{
 # 提权函数
 function Sudo() { 
     if ($Args.Length -eq 1) { 
-        Start-Process $Args[0] -Verb RunAs
+        Start-Process -FilePath $Args[0] -NoNewWindow -PassThru -Wait
     }
     ElseIf ($Args.Length -gt 1) { 
         $process = Start-Process -FilePath $Args[0] -Args $Args[1..$args.Length] -NoNewWindow -PassThru -Wait
