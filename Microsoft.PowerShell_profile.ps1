@@ -26,13 +26,14 @@ function Set-Env{
     [Environment]::SetEnvironmentVariable($Name, $NewValue, $Target)
 }
 # 提权函数
-function Sudo {
-    param (
-        [string]
-        [Parameter(Mandatory)]
-        $Program
-    )
-    Start-Process $Program -Verb RunAs
+function Sudo() { 
+    if ($Args.Length -eq 1) { 
+        StartProcess $Args[0] -Verb RunAs
+    } ElseIf ($Args.Length -gt 1) { 
+        Start-Process $Args[0] -ArgumentList $Args[1..$args.Length] -Verb RunAs
+    }Else{
+        Write-Host 'Can not find arguments.'
+    }
 }
 
 function Cd-Parent {
@@ -43,3 +44,4 @@ function Cd-Parent {
 # ===================================================================================
 New-Alias -Name .. -Value Cd-Parent
 New-Alias -Name grep -Value Select-String
+
