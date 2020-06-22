@@ -28,14 +28,25 @@ function Set-Env{
 # 提权函数
 function Sudo() { 
     if ($Args.Length -eq 1) { 
-        StartProcess $Args[0] -Verb RunAs
+        Start-Process $Args[0] -Verb RunAs
+    }
+    ElseIf ($Args.Length -gt 1) { 
+        $process = Start-Process -FilePath $Args[0] -Args $Args[1..$args.Length] -NoNewWindow -PassThru -Wait
+        $process.ExitCode
+    }
+    Else {
+        Write-Host 'Can not find arguments.'
+    }
+}
+function Sudow() { 
+    if ($Args.Length -eq 1) { 
+        Start-Process $Args[0] -Verb RunAs
     } ElseIf ($Args.Length -gt 1) { 
-        Start-Process $Args[0] -ArgumentList $Args[1..$args.Length] -Verb RunAs
+        Start-Process $Args[0] -Args $Args[1..$args.Length] -Verb RunAs
     }Else{
         Write-Host 'Can not find arguments.'
     }
 }
-
 function Cd-Parent {
     Set-Location ..
 }
