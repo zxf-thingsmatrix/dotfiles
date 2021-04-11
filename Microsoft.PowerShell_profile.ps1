@@ -52,7 +52,20 @@ function Cd-Parent {
 }
 
 
-# ===================================================================================
+# alias
 New-Alias -Name .. -Value Cd-Parent
 New-Alias -Name grep -Value Select-String
 
+Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete
+Set-PSReadlineKeyHandler -Key UpArrow -Function HistorySearchBackward
+Set-PSReadlineKeyHandler -Key DownArrow -Function HistorySearchForward
+
+# 启用 PSFzf 
+Remove-PSReadlineKeyHandler 'Ctrl+r'
+Import-Module PSFzf
+
+# 启用 zoxide
+Invoke-Expression (& {
+  	$hook = if ($PSVersionTable.PSVersion.Major -lt 6) { 'prompt' } else { 'pwd' }
+	(zoxide init --hook $hook powershell) -join "`n"
+})
