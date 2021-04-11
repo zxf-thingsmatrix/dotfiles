@@ -57,6 +57,7 @@ New-Alias -Name .. -Value Cd-Parent
 New-Alias -Name grep -Value Select-String
 
 Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete
+Set-PSReadLineOption -PredictionSource History
 Set-PSReadlineKeyHandler -Key UpArrow -Function HistorySearchBackward
 Set-PSReadlineKeyHandler -Key DownArrow -Function HistorySearchForward
 
