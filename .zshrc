@@ -1,6 +1,9 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
+export GWIP=$(ip route | grep default | awk '{print $3}')
+git config --global http.proxy http://$GWIP:44444
+git config --global https.proxy https://$GWIP:44444
 # Path to your oh-my-zsh installation.
 export ZSH="/root/.oh-my-zsh"
 
